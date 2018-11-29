@@ -1,16 +1,13 @@
 import { Action } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Program } from './models/program';
+import { Activity } from '../activities/models/Activity';
 
 export enum ProgramsActionTypes {
   FetchPrograms = '[UI] [Programs] Fetch Programs',
   FetchProgramsSuccess = '[API] [Programs] Load Programs Success',
   FetchProgramsError = '[API] [Programs] Load Programs Error',
-}
-
-export enum Pagination {
-  NEXT,
-  PREV
+  ChangePage = '[UI] [Programs] Change page',
 }
 
 export class FetchPrograms implements Action {
@@ -20,13 +17,21 @@ export class FetchPrograms implements Action {
 export class FetchProgramsSuccess implements Action {
   readonly type = ProgramsActionTypes.FetchProgramsSuccess;
 
-  constructor(public payload: Program[]) {}
+  constructor(public payload: Program[]) { }
 }
 
 export class FetchProgramsError implements Action {
   readonly type = ProgramsActionTypes.FetchProgramsError;
 
-  constructor(public payload: HttpErrorResponse) {}
+  constructor(public payload: HttpErrorResponse) { }
 }
 
-export type ProgramsActions = FetchPrograms | FetchProgramsSuccess | FetchProgramsError ;
+export class ChangePage implements Action {
+  readonly type = ProgramsActionTypes.ChangePage;
+
+  constructor(public payload: number) { }
+}
+
+
+
+export type ProgramsActions = FetchPrograms | FetchProgramsSuccess | FetchProgramsError | ChangePage;
