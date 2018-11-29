@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { State, selectAllActivities } from 'src/app/reducers';
+import { State, selectTenActivities } from 'src/app/reducers';
 import { FetchActivities } from '../activities.actions';
 import { Activity } from '../models/Activity';
 
@@ -17,7 +17,7 @@ export class ActivitiesListComponent implements OnInit {
   constructor(private store: Store<State>) { }
 
   ngOnInit() {
-      this.activities$ = this.store.select(selectAllActivities);
+      this.activities$ = this.store.select(selectTenActivities('1'));
       this.store.dispatch(new FetchActivities('a'));
   }
 

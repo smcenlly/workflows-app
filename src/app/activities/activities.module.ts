@@ -8,9 +8,16 @@ import { AddActivityComponent } from './add-activity/add-activity.component';
 import { ActivitiesListComponent } from './activities-list/activities-list.component';
 import { ActivitiesRoutingModule } from './activities-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { EditActivityComponent } from './edit-activity/edit-activity.component';
 
 @NgModule({
-  declarations: [ActivitiesListComponent, AddActivityComponent, ActivitiesListComponent, ActivityFormComponent],
+  declarations: [
+    ActivitiesListComponent,
+    AddActivityComponent,
+    EditActivityComponent,
+    ActivitiesListComponent,
+    ActivityFormComponent
+  ],
   imports: [
     SharedModule,
     CommonModule,

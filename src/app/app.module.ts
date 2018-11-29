@@ -11,16 +11,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { ProgramsModule } from './programs/programs.module';
 import { CoreModule } from './core/core.module';
-import { AddActivityComponent } from './activities/add-activity/add-activity.component';
-import { EditActivityComponent } from './activities/edit-activity/edit-activity.component';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddActivityComponent,
-    EditActivityComponent
   ],
   imports: [
     AppRoutingModule,

@@ -8,7 +8,7 @@ import { ActivitiesListComponent } from './activities-list/activities-list.compo
 const routes: Routes = [
     { path: '', component: ActivitiesListComponent },
     { path: 'add', component: AddActivityComponent },
-    { path: ':mealId', component: EditActivityComponent },
+    { path: ':activityId', component: EditActivityComponent },
 ];
 
 @NgModule({

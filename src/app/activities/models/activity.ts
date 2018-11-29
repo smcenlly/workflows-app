@@ -4,4 +4,5 @@ export interface Activity {
     startDate: string;
     endDate: string;
     workflowlevel1?: string;
+    programId?: string;
 }

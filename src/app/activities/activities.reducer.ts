@@ -12,7 +12,8 @@ export function reducer(state = initialState, action: ActivitiesActions): State 
     switch (action.type) {
         case ActivitiesActionTypes.FetchActivitiesSuccess:
             activityAdapter.removeAll(state);
-            return activityAdapter.addMany(action.payload, state);
+            const activities = action.payload.map(activity => ({...activity, programId: activity.workflowlevel1.split('/')[5] }));
+            return activityAdapter.addMany(activities, state);
 
         case ActivitiesActionTypes.ChangePage:
             return {

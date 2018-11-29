@@ -20,7 +20,7 @@ export class ActivitiesEffects {
             }),
             withLatestFrom(this.store),
             switchMap(([action, state]) =>
-                this.service.getActivitiesForProgram(action.selectedProgramId).pipe(
+                this.service.getActivitiesForProgram(action.payload).pipe(
                     map(data => new FetchActivitiesSuccess(data)),
                     catchError(err => of(new FetchActivitiesError(err)))
                 )
