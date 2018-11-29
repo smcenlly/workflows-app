@@ -12,8 +12,8 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of activities$ | async;">
-                <td>{{item.name}}</td>
+          <tr *ngFor="let item of activities$ | async;">
+            <td>{{item.name}}</td>
                 <td class="text-center">
                     <a class="link" [routerLink]="['/programs', item.id, 'activities']">
                         <i class="fa fa-cutlery text-warning"> </i>
@@ -26,6 +26,6 @@
 </div>
 
 <div class="col-md-12">
-    <pagination [totalItems]="(programs$ | async).length" [maxSize]="10"></pagination>
+  <pagination [totalItems]="(activities$ | async).length" [maxSize]="10"></pagination>
 </div>
 <!-- [(ngModel)]="currentPage" (pageChanged)="fetchUsers($event)" -->
