@@ -1,46 +1,22 @@
 import { ActivitiesActions, ActivitiesActionTypes } from './activities.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Activity } from './models/activity';
+import { createEntityAdapter, EntityState, EntityAdapter } from '@ngrx/entity';
+export interface State extends EntityState<Activity> { }
 
-export interface State {
-    isLoading: boolean;
-    error: HttpErrorResponse | null;
-    data: Activity[] | null;
-    page: number;
-    selectedProgramId: string | null;
-}
+export const activityAdapter: EntityAdapter<Activity> = createEntityAdapter<Activity>();
 
-export const initialState: State = {
-    isLoading: false,
-    error: null,
-    data: [],
-    page: 1,
-    selectedProgramId: null
-};
+export const initialState: State = activityAdapter.getInitialState();
 
 export function reducer(state = initialState, action: ActivitiesActions): State {
     switch (action.type) {
-        case ActivitiesActionTypes.FetchActivities:
-            return {
-                ...state,
-                isLoading: true,
-                error: null,
-                selectedProgramId: action.selectedProgramId
-            };
-
         case ActivitiesActionTypes.FetchActivitiesSuccess:
-            return {
-                ...state,
-                isLoading: false,
-                data: action.payload,
-            };
+            activityAdapter.removeAll(state);
+            return activityAdapter.addMany(action.payload, state);
 
-        case ActivitiesActionTypes.FetchActivitiesError:
+        case ActivitiesActionTypes.ChangePage:
             return {
                 ...state,
-                isLoading: false,
-                error: action.payload,
-                selectedProgramId: null
             };
 
         default:

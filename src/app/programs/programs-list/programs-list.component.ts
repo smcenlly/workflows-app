@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Program } from '../models/program';
 import { Store } from '@ngrx/store';
-import { getPrograms, State } from 'src/app/reducers';
+import {  State, selectAllPrograms } from 'src/app/reducers';
 import { FetchPrograms, ChangePage } from '../programs.actions';
 
 @Component({
@@ -16,7 +16,7 @@ export class ProgramsListComponent implements OnInit {
     constructor(private store: Store<State>) { }
 
     ngOnInit() {
-        this.programs$ = this.store.select(getPrograms);
+        this.programs$ = this.store.select(selectAllPrograms);
         this.store.dispatch(new FetchPrograms());
     }
 
