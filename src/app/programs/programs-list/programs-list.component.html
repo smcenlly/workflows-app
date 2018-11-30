@@ -6,17 +6,24 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th class="text-center">Activities</th>
+                <th>Status</th>
+                <th class="text-center">Have Activities</th>
+                <th class="text-center">Activities Panel</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let item of programs$ | async;">
                 <td>{{item.name}}</td>
+                <td>{{item.status}}</td>
+                <td class="text-center">
+                    {{(hasActivities(item.id) | async) ? 'Yes' : 'No'}}
+                </td>
                 <td class="text-center">
                     <a class="link" [routerLink]="['/programs', item.id, 'activities']">
                         <i class="fa fa-cutlery text-warning"> </i>
                     </a>
                 </td>
+
             </tr>
         </tbody>
 
@@ -28,8 +35,7 @@
  </div> -->
 
 <div class="col-md-12">
-    <pagination [totalItems]="(programs$ | async).length" [maxSize]="10"
-     [ngModel]="currentPage$ | async" (pageChanged)="changePage($event)"></pagination>
+    <pagination [totalItems]="programsCount$ | async" [maxSize]="10" [ngModel]="currentPage$ | async" (pageChanged)="changePage($event)"></pagination>
 </div>
 <!-- [(ngModel)]="currentPage" (pageChanged)="fetchUsers($event)" -->
 <!-- "  -->
