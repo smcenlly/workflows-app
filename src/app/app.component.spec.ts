@@ -1,31 +1,55 @@
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { FetchData } from './app.actions';
+import { StoreModule, combineReducers, Store } from '@ngrx/store';
+import { SharedModule } from './shared/shared.module';
+import * as fromRoot from './reducers';
+import * as fromFeature from './reducers';
+import { CoreModule } from './core/core.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  }));
+    let component: AppComponent;
+    let fixture: ComponentFixture<AppComponent>;
+    let store: Store<fromFeature.State>;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            declarations: [
+                AppComponent
+            ],
+            imports: [
+                RouterTestingModule,
+                CoreModule,
+                SharedModule,
+                StoreModule.forRoot({
+                    ...fromRoot.reducers,
+                    feature: combineReducers(fromFeature.reducers),
+                }),
+            ],
 
-  it(`should have as title 'programs-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('programs-app');
-  });
+        })
+            .compileComponents();
+        store = TestBed.get(Store);
+        spyOn(store, 'dispatch').and.callThrough();
+        fixture = TestBed.createComponent(AppComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
-  it('should render title in a h1 tag', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to programs-app!');
-  });
+    it('should create the app', () => {
+        const app = fixture.debugElement.componentInstance;
+        expect(app).toBeTruthy();
+    });
+
+    it('should dispatch an action to load data when created', () => {
+        const action = new FetchData();
+        expect(store.dispatch).toHaveBeenCalledWith(action);
+    });
+
+
+    it(`should have as title 'programs-app'`, () => {
+        const app = fixture.debugElement.componentInstance;
+        expect(app.title).toEqual('programs-app');
+    });
 });
