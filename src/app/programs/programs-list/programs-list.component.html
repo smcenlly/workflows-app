@@ -19,7 +19,7 @@
                     {{(hasActivities(item.id) | async) ? 'Yes' : ''}}
                 </td>
                 <td class="text-center">
-                    <a class="link" [routerLink]="['/programs', item.id, 'activities']">
+                    <a class="link" [routerLink]="[item.id, 'activities']">
                         <i class="fa fa-play-circle text-warning"> </i>
                     </a>
                 </td>

@@ -9,6 +9,8 @@ const routes: Routes = [
     { path: '', component: ActivitiesListComponent },
     { path: 'add', component: AddActivityComponent },
     { path: ':activityId', component: EditActivityComponent },
+    { path: '', redirectTo: '', pathMatch: 'full' },
+    { path: '**', redirectTo: '' }
 ];
 
 @NgModule({
