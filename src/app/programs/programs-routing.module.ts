@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
     { path: '', component: ProgramsListComponent },
+    { path: ':programId/activities', loadChildren: '../activities/activities.module#ActivitiesModule'}
 ];
 
 @NgModule({
