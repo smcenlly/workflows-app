@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Activity } from '../models/Activity';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/public_api';
 
 @Component({
     selector: 'app-activity-form',
@@ -10,6 +11,7 @@ import { Activity } from '../models/Activity';
 export class ActivityFormComponent implements OnInit {
 
     form: FormGroup;
+    datePickerConfig: Partial<BsDatepickerConfig>;
     @Input() activity?: Activity;
     @Output() submitted = new EventEmitter();
 
@@ -19,6 +21,7 @@ export class ActivityFormComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.datePickerConfig = { containerClass: 'theme-red' };
         this.buildForm();
     }
 
