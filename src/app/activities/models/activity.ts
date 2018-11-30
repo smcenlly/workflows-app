@@ -1,8 +1,8 @@
 export interface Activity {
-    id: string;
+    id: number;
     name: string;
-    startDate: string;
-    endDate: string;
+    expected_start_date: string;
+    expected_end_date: string;
     workflowlevel1?: string;
-    programId?: string;
+    programId?: number;
 }
