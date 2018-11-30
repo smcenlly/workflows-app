@@ -1,6 +1,6 @@
 <form (ngSubmit)="onSubmit(form.value)" [formGroup]="form" *ngIf="form">
 
-  <app-default-input-layout label="Name" errorMessage="Please enter a valid name" [isDisplayingErrorMessage]="true">
+  <app-default-input-layout label="Name" errorMessage="Please enter a valid name" [isDisplayingErrorMessage]="form.get('name').dirty && form.get('name').invalid">
     <input type="text" name="name" class="form-control" formControlName="name">
   </app-default-input-layout>
 
