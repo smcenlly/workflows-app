@@ -2,20 +2,22 @@
 <div class="panel-body">
     <div class="row">
     </div>
+    <h3 class="panel-title">
+        <a title="Add New Meal" id="addButton" [routerLink]="['/programs', programId, 'activities', 'add']" class="text-info pull-right fa fa-plus link"></a>
+    </h3>
     <table class="table table-hover">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>StartDate</th>
                 <th>EndDate</th>
-                <th class="text-center">Activities</th>
             </tr>
         </thead>
         <tbody>
           <tr *ngFor="let item of activities$ | async;">
             <td>{{item.name}}</td>
                 <td class="text-center">
-                    <a class="link" [routerLink]="['/programs', item.id, 'activities']">
+                    <a class="link" [routerLink]="['/programs', programId, 'activities', item.id]">
                         <i class="fa fa-cutlery text-warning"> </i>
                     </a>
                 </td>
@@ -26,6 +28,6 @@
 </div>
 
 <div class="col-md-12">
-  <pagination [totalItems]="(activities$ | async).length" [maxSize]="10"></pagination>
+    <pagination [totalItems]="activitiesCount$ | async" [maxSize]="10" [ngModel]="currentPage$ | async" (pageChanged)="changePage($event)"></pagination>
 </div>
 <!-- [(ngModel)]="currentPage" (pageChanged)="fetchUsers($event)" -->
