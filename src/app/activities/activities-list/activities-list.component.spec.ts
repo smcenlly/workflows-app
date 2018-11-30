@@ -56,10 +56,10 @@ describe('ActivitiesListComponent', () => {
     it('should display a list of activities', () => {
         const fakePrograms = Array.from({ length: 20 }, (_, i) => ({ id: i + 20, name: 'a' }));
         const fakeActivities = Array.from({ length: 5 }, (_, i) =>
-            ({ id: i + 20, programId: 2, name: 'p', startDate: '12/4/1998', endDate: '12/4/1998' }))
+            ({ id: i + 20, programId: 2, name: 'p', expected_start_date: '12/4/1998', expected_end_date: '12/4/1998' }))
             .concat(
                 Array.from({ length: 30 }, (_, i) =>
-                    ({ id: i + 20, programId: 1, name: 'a', startDate: '12/4/1998', endDate: '12/4/1998' }))
+                    ({ id: i + 20, programId: 1, name: 'a', expected_start_date: '12/4/1998', expected_end_date: '12/4/1998' }))
             );
 
         const payload = { programs: fakePrograms, activities: fakeActivities };
