@@ -16,11 +16,11 @@
                 <td>{{item.name}}</td>
                 <td>{{item.status}}</td>
                 <td class="text-center">
-                    {{(hasActivities(item.id) | async) ? 'Yes' : 'No'}}
+                    {{(hasActivities(item.id) | async) ? 'Yes' : ''}}
                 </td>
                 <td class="text-center">
                     <a class="link" [routerLink]="['/programs', item.id, 'activities']">
-                        <i class="fa fa-edit text-warning"> </i>
+                        <i class="fa fa-play-circle text-warning"> </i>
                     </a>
                 </td>
 

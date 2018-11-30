@@ -4,7 +4,6 @@ import { Program } from '../models/program';
 import { Store } from '@ngrx/store';
 import {  State, selectTenPrograms, selectAllPrograms, selectProgramsCount,
     selectProgramsPageNumber, doesProgramHaveActivities } from 'src/app/reducers';
-import { FetchPrograms } from '../programs.actions';
 import { ChangeProgramPage } from '../../ui/ui.actions';
 
 @Component({

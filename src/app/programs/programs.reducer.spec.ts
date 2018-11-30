@@ -1,21 +1,10 @@
 import * as fromPrograms from './programs.reducer';
-import { FetchPrograms, FetchProgramsSuccess } from './programs.actions';
 import { FetchDataSuccess } from '../app.actions';
 
 
-
 describe('Programs Reducer', () => {
-    describe('Fetch action', () => {
-        it('should set loading to true', () => {
-            const { initialState } = fromPrograms;
-            const action = new FetchPrograms();
-            const result = fromPrograms.reducer(initialState, action);
-
-            expect(result.entities).toEqual({});
-        });
-    });
     describe('Fetch success action', () => {
-        it('should set loading to true', () => {
+        fit('should set loading to true', () => {
             const { initialState } = fromPrograms;
             const action = new FetchDataSuccess({
                 programs: [

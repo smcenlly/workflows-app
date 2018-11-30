@@ -5,7 +5,6 @@ import { StoreModule, combineReducers, Store } from '@ngrx/store';
 import * as fromRoot from '../../reducers';
 import * as fromFeature from '../activities.reducer';
 import { SharedModule } from '../../shared/shared.module';
-import { FetchActivitiesSuccess } from '../activities.actions';
 import { FetchDataSuccess } from '../../app.actions';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';

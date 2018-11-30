@@ -1,5 +1,4 @@
 import { ActivitiesActions, ActivitiesActionTypes } from './activities.actions';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Activity } from './models/activity';
 import { createEntityAdapter, EntityState, EntityAdapter } from '@ngrx/entity';
 import { AppActionTypes, AppActions } from '../app.actions';

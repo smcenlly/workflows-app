@@ -1,45 +1,49 @@
 import * as fromActivities from './activities.reducer';
-import { FetchActivities, FetchActivitiesSuccess, AddActivitySuccess,
-    EditActivitySuccess, DeleteActivitySuccess } from './activities.actions';
+import { AddActivitySuccess, DeleteActivitySuccess } from './activities.actions';
+import { FetchDataSuccess } from '../app.actions';
 
 describe('Activities Reducer', () => {
-    describe('Fetch action', () => {
-        it('should work', () => {
+    describe('Fetching Data', () => {
+        let state;
+        beforeAll(() => {
             const { initialState } = fromActivities;
-            const action = new FetchActivities();
-            const result = fromActivities.reducer(initialState, action);
-            expect(result.entities).toEqual({});
+            const action = new FetchDataSuccess({
+                programs: [
+                    { id: 1, name: 'program-name' }
+                ],
+                activities: [
+                    { id: 22, name: 'activity-name' }
+                ]
+            });
+            state = fromActivities.reducer(initialState, action);
         });
-    });
 
-
-    describe('Add success action', () => {
-        it('should work', () => {
-            const { initialState } = fromActivities;
-            const payload = { id: 54, name: 'activity-name', expected_start_date: '12/10/1998', expected_end_date: '12/10/1998' };
-            const action = new AddActivitySuccess(payload);
-            const result = fromActivities.reducer(initialState, action);
-            expect(result.ids).toEqual([54]);
-            expect(result.entities[54]).toBeTruthy();
+        it('should load data into entities', () => {
+            expect(state).toEqual({
+                entities: { 22: { id: 22, name: 'activity-name' } },
+                ids: [22]
+            });
         });
-    });
 
-    describe('Delete success action', () => {
-        let initialState;
-        beforeEach(() => {
-            const payload = [{ id: 1, name: 'activity-name', expected_start_date: '12/10/1998', expected_end_date: '12/10/1998' }];
-            const action = new FetchActivitiesSuccess(payload);
-            initialState = fromActivities.reducer(initialState, action);
+        describe('Adding an activity', () => {
+            it('should have one more entity', () => {
+                const payload = { id: 54, name: 'abn' };
+                const action = new AddActivitySuccess(payload);
+                const result = fromActivities.reducer(state, action);
+                expect(result.ids).toEqual([22, 54]);
+                expect(result.entities[54]).toBeTruthy();
+            });
         });
-        it('should work', () => {
-            const action = new DeleteActivitySuccess(1);
-            const result = fromActivities.reducer(initialState, action);
-            expect(result).toEqual({
-                entities: {},
-                ids: []
+
+        describe('deleting an activity action', () => {
+            it('should have one less entity', () => {
+                const action = new DeleteActivitySuccess(22);
+                const result = fromActivities.reducer(state, action);
+                expect(result).toEqual({
+                    entities: {},
+                    ids: []
+                });
             });
         });
     });
-
-
 });

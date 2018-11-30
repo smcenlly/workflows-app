@@ -1,5 +1,3 @@
-import { ProgramsActions, ProgramsActionTypes } from './programs.actions';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Program } from './models/program';
 import { AppActionTypes, AppActions } from '../app.actions';
 import { createEntityAdapter, EntityState, EntityAdapter } from '@ngrx/entity';
@@ -9,15 +7,11 @@ export const programAdapter: EntityAdapter<Program> = createEntityAdapter<Progra
 
 export const initialState: State = programAdapter.getInitialState();
 
-export function reducer(state = initialState, action: ProgramsActions | AppActions): State {
+export function reducer(state = initialState, action: AppActions): State {
     switch (action.type) {
-
         case AppActionTypes.FetchDataSuccess:
             programAdapter.removeAll(state);
             return programAdapter.addMany(action.payload.programs, state);
-
-        case ProgramsActionTypes.FetchProgramsError:
-
         default:
             return state;
     }

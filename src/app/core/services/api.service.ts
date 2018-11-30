@@ -9,8 +9,8 @@ import { apiBaseUrl } from 'src/app/config/constants';
     providedIn: 'root'
 })
 export class ApiService {
-    private readonly firstLevelUrl = `${apiBaseUrl}/workflowlevel1/`;
-    private readonly secondLevelUrl = `${apiBaseUrl}/workflowlevel2/`;
+    private readonly firstLevelUrl = `${apiBaseUrl}/workflowlevel1`;
+    private readonly secondLevelUrl = `${apiBaseUrl}/workflowlevel2`;
     constructor(private http: HttpClient) { }
 
     getPrograms(): Observable<Program[]> {
