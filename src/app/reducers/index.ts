@@ -2,13 +2,16 @@ import {
     ActionReducer,
     ActionReducerMap,
     createFeatureSelector,
+    MetaReducer,
     createSelector,
-    MetaReducer
+    MemoizedSelector
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
 import * as fromPrograms from '../programs/programs.reducer';
 import * as fromActivities from '../activities/activities.reducer';
 import * as fromUi from '../ui/ui.reducer';
+import { Program } from '../programs/models/program';
+import { Activity } from '../activities/models/Activity';
 
 export interface State {
 
@@ -42,17 +45,23 @@ export const { selectAll: selectAllPrograms } = fromPrograms.programAdapter.getS
 export const selectActivitiesState = createFeatureSelector<fromActivities.State>('activities');
 export const { selectAll: selectAllActivities } = fromActivities.activityAdapter.getSelectors(selectActivitiesState);
 export const selectActivitiesForAProgram = (programId) =>
-    createSelector(selectAllActivities, activities => activities.filter(activity => activity.programId === programId));
+    createSelector(selectAllActivities, activities => activities.filter(activity => activity.programId == programId));
 
 export const selectUIState = createFeatureSelector<fromUi.State>('ui');
-export const selectProgramsPageNumber = createSelector(selectUIState, state => state.programsPageNumber);
-export const selectActivitiesPageNumber = (programId) => createSelector(selectUIState, state => state.activitiesPageNumber[programId]);
+export const selectProgramsPageNumber: MemoizedSelector<object, number> = createSelector(selectUIState, state => state.programsPageNumber);
+export const selectActivitiesPageNumber =
+    (programId): MemoizedSelector<object, number> => createSelector(selectUIState, state => state.activitiesPageNumber[programId]);
 
-export const selectTenPrograms = createSelector(selectAllPrograms, selectProgramsPageNumber,
-    (arr, pageNumber) => arr.slice(1, pageNumber));
+export const selectTenPrograms: MemoizedSelector<object, Program[]> = createSelector(selectAllPrograms, selectProgramsPageNumber,
+    (arr, pageNumber) => {
+        const firstIndex = (pageNumber - 1) * 10;
+        return arr.slice(firstIndex, firstIndex + 10);
+    });
+
+// export const selectTenPrograms = reducers.programs(fromPrograms.initialState)
 
 
-export const selectTenActivities = (programId) => createSelector(
+export const selectTenActivities = (programId): MemoizedSelector<object, Activity[]> => createSelector(
     selectActivitiesForAProgram(programId),
     selectActivitiesPageNumber(programId),
     (arr, pageNumber) => arr.slice(1, pageNumber));
