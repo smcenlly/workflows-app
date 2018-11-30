@@ -1,6 +1,6 @@
 import * as fromMyReducers from './';
 
-fdescribe('My Selectors', () => {
+describe('Selectors', () => {
     describe('selectProgramsPageNumber', () => {
         it('should get page number', () => {
             expect(fromMyReducers.selectProgramsPageNumber.projector({ programsPageNumber: 5 })).toBe(5);
@@ -35,11 +35,19 @@ fdescribe('My Selectors', () => {
 
     describe('selectActivitiesPageNumber', () => {
         it('should get only activities for a program', () => {
-            expect(fromMyReducers.selectActivitiesPageNumber('1')
+            expect(fromMyReducers.selectActivitiesPageNumber(1)
                 .projector(
-                    { programsPageNumber: 6, activitiesPageNumber: { '1': 2 } }
+                    { programsPageNumber: 6, activitiesPageNumber: { 1: 4 } }
                 )
-            ).toBe(2);
+            ).toBe(4);
+        });
+
+        it('should default to 1', () => {
+            expect(fromMyReducers.selectActivitiesPageNumber(1)
+                .projector(
+                    { programsPageNumber: 6, activitiesPageNumber: { } }
+                )
+            ).toBe(1);
         });
     });
 
@@ -53,24 +61,6 @@ fdescribe('My Selectors', () => {
             const result = fromMyReducers.selectTenPrograms.projector(fakePrograms, 2);
             expect(result.length).toBe(10);
             expect(result[0].id).toBe(30);
-        });
-    });
-
-    describe('selectTenActivities', () => {
-        let fakePrograms;
-        let fakeActivities;
-        beforeAll(() => {
-            fakePrograms = Array.from({ length: 20 }, (_, i) => ({ id: i + 20 }));
-            fakeActivities = Array.from({ length: 5 }, (_, i) => ({ id: i + 20, programId: 2 }))
-            .concat(
-                Array.from({ length: 30 }, (_, i) => ({ id: i + 20, programId: 1 }))
-            );
-        });
-
-        it('should get maximum 10 programs based on page number and based on the project number selected', () => {
-            const result = fromMyReducers.selectTenActivities(1).projector(fakeActivities, 1);
-            expect(result.length).toBe(5);
-            expect(result[0].programId).toBe(2);
         });
     });
 
