@@ -1,4 +1,5 @@
 export interface Program {
-    id: string;
+    id: number;
     name: string;
+    status?: string;
 }
