@@ -14,15 +14,15 @@ describe('ActivitiesActions', () => {
     });
 
     // describe('AddActivity', () => {
-    //     it('should create an action', () => {
+    //     fit('should create an action', () => {
     //         const payload: Activity = {
     //             id: 1,
     //             name: 'Activity #1',
-    //             startDate: '22/06/1999',
-    //             endDate: '22/06/1999'
+    //             expected_start_date: '22/06/1999',
+    //             expected_end_date: '22/06/1999'
     //         };
-    //         const action = new AddActivity(payload);
-    //         expect(action).toEqual({ type: ActivitiesActionTypes.AddActivity, activity: payload });
+    //         const action = new AddActivity(payload, 1);
+    //         expect(action).toEqual({ type: ActivitiesActionTypes.AddActivity, activity: payload, programId: 1 });
     //     });
     // });
 
@@ -33,8 +33,8 @@ describe('ActivitiesActions', () => {
     //         const payload: Activity = {
     //             id: 1,
     //             name: 'Activity #1',
-    //             startDate: '22/06/1999',
-    //             endDate: '22/06/1999'
+    //             expected_start_date: '22/06/1999',
+    //             expected_end_date: '22/06/1999'
     //         };
 
     //         const action = new EditActivity(1, payload);
@@ -57,14 +57,14 @@ describe('ActivitiesActions', () => {
                 {
                     id: 1,
                     name: 'Activity #1',
-                    startDate: '22/06/1999',
-                    endDate: '22/06/1999'
+                    expected_start_date: '22/06/1999',
+                    expected_end_date: '22/06/1999'
                 },
                 {
                     id: 2,
                     name: 'Activity #2',
-                    startDate: '22/06/1999',
-                    endDate: '22/06/1999'
+                    expected_start_date: '22/06/1999',
+                    expected_end_date: '22/06/1999'
                 },
             ];
             const action = new FetchActivitiesSuccess(payload);
@@ -81,8 +81,8 @@ describe('ActivitiesActions', () => {
             const payload: Activity = {
                 id: 1,
                 name: 'Activity #1',
-                startDate: '22/06/1999',
-                endDate: '22/06/1999'
+                expected_start_date: '22/06/1999',
+                expected_end_date: '22/06/1999'
             };
             const action = new AddActivitySuccess(payload);
 
@@ -98,8 +98,8 @@ describe('ActivitiesActions', () => {
             const payload: Activity = {
                 id: 1,
                 name: 'Activity #1',
-                startDate: '22/06/1999',
-                endDate: '22/06/1999'
+                expected_start_date: '22/06/1999',
+                expected_end_date: '22/06/1999'
             };
             const action = new EditActivitySuccess(payload);
 

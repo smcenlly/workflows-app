@@ -22,17 +22,17 @@ export class FetchActivities implements Action {
 }
 
 export class AddActivity implements Action {
-    readonly type = ActivitiesActionTypes.FetchActivitiesSuccess;
+    readonly type = ActivitiesActionTypes.AddActivity;
     constructor(public activity: Activity, public programId: number) { }
 }
 
 export class DeleteActivity implements Action {
-    readonly type = ActivitiesActionTypes.FetchActivitiesSuccess;
+    readonly type = ActivitiesActionTypes.DeleteActivity;
     constructor(public activityId: number) { }
 }
 
 export class EditActivity implements Action {
-    readonly type = ActivitiesActionTypes.FetchActivitiesSuccess;
+    readonly type = ActivitiesActionTypes.EditActivity;
     constructor(public activityId: number, public activity: Activity) { }
 }
 
@@ -58,8 +58,22 @@ export class FetchActivitiesError implements Action {
     readonly type = ActivitiesActionTypes.FetchActivitiesError;
     constructor(public payload: HttpErrorResponse) { }
 }
+export class AddActivityError implements Action {
+    readonly type = ActivitiesActionTypes.AddActivityError;
+    constructor(public payload: HttpErrorResponse) { }
+}
+export class EditActivityError implements Action {
+    readonly type = ActivitiesActionTypes.EditActivitiesError;
+    constructor(public payload: HttpErrorResponse) { }
+}
+export class DeleteActivityError implements Action {
+    readonly type = ActivitiesActionTypes.DeleteActivitiesError;
+    constructor(public payload: HttpErrorResponse) { }
+}
+
 
 export type ActivitiesActions = FetchActivities | FetchActivitiesSuccess | FetchActivitiesError | AddActivity |
     DeleteActivity | FetchActivitiesSuccess | FetchActivitiesError |
-    AddActivitySuccess | DeleteActivitySuccess | EditActivitySuccess;
+    AddActivitySuccess | DeleteActivitySuccess | EditActivitySuccess | AddActivityError |
+    EditActivityError | DeleteActivityError;
 
