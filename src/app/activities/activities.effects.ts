@@ -10,7 +10,7 @@ import {
     AddActivityError,
     DeleteActivityError
 } from './activities.actions';
-import { map, exhaustMap, withLatestFrom, tap, catchError } from 'rxjs/operators';
+import { map, exhaustMap, catchError, switchMap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { ApiService } from '../core/services/api.service';
 import { addWorkflowLevel1Prop } from '../core/services/utility';
@@ -43,13 +43,15 @@ export class ActivitiesEffects {
     delete$: Observable<ActivitiesActions> = this.actions$
         .ofType<DeleteActivity>(ActivitiesActionTypes.DeleteActivity)
         .pipe(
-            exhaustMap(action => this.service.deleteActivity(action.activityId)),
-            map(data => new DeleteActivitySuccess(data)),
-            catchError(err => {
-                this.sb.emitErrorSnackBar();
-                return of(new DeleteActivityError(err));
-            })
-        );
+            switchMap((action => this.service.deleteActivity(action.activityId)
+                .pipe(
+                    map((_apiPayload) => new DeleteActivitySuccess(action.activityId)),
+                    catchError(err => {
+                        this.sb.emitErrorSnackBar();
+                        return of(new DeleteActivityError(err));
+                    })
+                ))
+            ));
 
     constructor(
         private actions$: Actions,

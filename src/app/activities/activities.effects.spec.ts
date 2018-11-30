@@ -32,7 +32,7 @@ describe('Activities Effects', () => {
     });
 
     describe('Add', () => {
-        it('should dispatch activity success action', () => {
+        fit('should dispatch activity success action', () => {
             const activity: Activity = { id: 4, name: 'p', expected_end_date: '13/09/1998', expected_start_date: '13/09/1998' };
             apiServiceSpy.addActivity.and.returnValue(of(activity));
             const action = new MyActions.AddActivity(activity, 1);
@@ -44,16 +44,16 @@ describe('Activities Effects', () => {
     });
 
 
-    // describe('Delete', () => {
-    //     fit('should dispatch activity success action', () => {
-    //         apiServiceSpy.deleteActivity.and.returnValue(of(true));
-    //         const action = new MyActions.DeleteActivity(4);
-    //         const completion = new MyActions.DeleteActivitySuccess(4);
-    //         actions = hot('--a-', { a: action });
-    //         const expected = cold('--b', { b: completion });
-    //         expect(effects.add$).toBeObservable(expected);
-    //     });
-    // });
+    describe('Delete', () => {
+        fit('should dispatch activity success action', () => {
+            apiServiceSpy.deleteActivity.and.returnValue(of(true));
+            const action = new MyActions.DeleteActivity(4);
+            const completion = new MyActions.DeleteActivitySuccess(4);
+            actions = hot('--a-', { a: action });
+            const expected = cold('--b', { b: completion });
+            expect(effects.delete$).toBeObservable(expected);
+        });
+    });
 
 
 });
