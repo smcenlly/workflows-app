@@ -3,7 +3,7 @@ import {  getTestBed, TestBed } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-fdescribe('Service: Snack bar Service', () => {
+describe('Service: Snack bar Service', () => {
     let service: SnackBarService;
     beforeEach(() => {
         TestBed.configureTestingModule({
