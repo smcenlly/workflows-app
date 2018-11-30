@@ -28,8 +28,8 @@ export class ActivityFormComponent implements OnInit {
     onSubmit() {
         this.submitted.emit({
             name: this.form.value.name,
-            startDate: this.form.value.startDate,
-            endDate: this.form.value.endDate
+            expected_start_date: this.form.value.expected_start_date,
+            expected_end_date: this.form.value.expected_end_date
         });
     }
 
@@ -37,8 +37,10 @@ export class ActivityFormComponent implements OnInit {
         this.form = this.fb.group({
             name: [this.activity ? this.activity.name : '', Validators.compose([
                 Validators.required, Validators.maxLength(20), Validators.minLength(3)])],
-            startDate: [this.activity ? new Date(this.activity.startDate.replace('Z', '')) : new Date(Date.now()), Validators.required],
-            endDate: [this.activity ? new Date(this.activity.endDate.replace('Z', '')) : new Date(Date.now()), Validators.required],
+            expected_start_date:
+                [this.activity ? new Date(this.activity.expected_start_date.replace('Z', '')) : new Date(Date.now()), Validators.required],
+            expected_end_date:
+                [this.activity ? new Date(this.activity.expected_end_date.replace('Z', '')) : new Date(Date.now()), Validators.required],
         });
     }
 

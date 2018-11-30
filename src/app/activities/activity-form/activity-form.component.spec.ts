@@ -31,14 +31,14 @@ describe('ActivityForm Componentt', () => {
                 const nameInputElement = nameInput.nativeElement;
                 nameInputElement.value = 'aa';
                 nameInputElement.dispatchEvent(new Event('input'));
-                const startDate = fixture.debugElement.query(By.css('input[name="startDate"]'));
-                const startDateElement = startDate.nativeElement;
-                startDateElement.value = '15/05/2018';
-                startDateElement.dispatchEvent(new Event('input'));
-                const endDate = fixture.debugElement.query(By.css('input[name="endDate"]'));
-                const endDateElement = endDate.nativeElement;
-                endDateElement.value = '15/05/2018';
-                endDateElement.dispatchEvent(new Event('input'));
+                const expected_start_date = fixture.debugElement.query(By.css('input[name="expected_start_date"]'));
+                const expected_start_dateElement = expected_start_date.nativeElement;
+                expected_start_dateElement.value = '15/05/2018';
+                expected_start_dateElement.dispatchEvent(new Event('input'));
+                const expected_end_date = fixture.debugElement.query(By.css('input[name="expected_end_date"]'));
+                const expected_end_dateElement = expected_end_date.nativeElement;
+                expected_end_dateElement.value = '15/05/2018';
+                expected_end_dateElement.dispatchEvent(new Event('input'));
                 fixture.detectChanges();
             });
             it('form should be invalid', () => {
@@ -62,14 +62,14 @@ describe('ActivityForm Componentt', () => {
                 const nameInputElement = nameInput.nativeElement;
                 nameInputElement.value = 'nnaa';
                 nameInputElement.dispatchEvent(new Event('input'));
-                const startDate = fixture.debugElement.query(By.css('input[name="startDate"]'));
-                const startDateElement = startDate.nativeElement;
-                startDateElement.value = '15/05/2018';
-                startDateElement.dispatchEvent(new Event('input'));
-                const endDate = fixture.debugElement.query(By.css('input[name="endDate"]'));
-                const endDateElement = endDate.nativeElement;
-                endDateElement.value = '15/05/2018';
-                endDateElement.dispatchEvent(new Event('input'));
+                const expected_start_date = fixture.debugElement.query(By.css('input[name="expected_start_date"]'));
+                const expected_start_dateElement = expected_start_date.nativeElement;
+                expected_start_dateElement.value = '15/05/2018';
+                expected_start_dateElement.dispatchEvent(new Event('input'));
+                const expected_end_date = fixture.debugElement.query(By.css('input[name="expected_end_date"]'));
+                const expected_end_dateElement = expected_end_date.nativeElement;
+                expected_end_dateElement.value = '15/05/2018';
+                expected_end_dateElement.dispatchEvent(new Event('input'));
 
                 fixture.detectChanges();
             });
