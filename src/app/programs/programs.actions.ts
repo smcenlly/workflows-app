@@ -7,7 +7,6 @@ export enum ProgramsActionTypes {
   FetchPrograms = '[UI] [Programs] Fetch Programs',
   FetchProgramsSuccess = '[API] [Programs] Load Programs Success',
   FetchProgramsError = '[API] [Programs] Load Programs Error',
-  ChangePage = '[UI] [Programs] Change page',
 }
 
 export class FetchPrograms implements Action {
@@ -26,12 +25,6 @@ export class FetchProgramsError implements Action {
   constructor(public payload: HttpErrorResponse) { }
 }
 
-export class ChangePage implements Action {
-  readonly type = ProgramsActionTypes.ChangePage;
-
-  constructor(public payload: number) { }
-}
 
 
-
-export type ProgramsActions = FetchPrograms | FetchProgramsSuccess | FetchProgramsError | ChangePage;
+export type ProgramsActions = FetchPrograms | FetchProgramsSuccess | FetchProgramsError;
