@@ -12,7 +12,7 @@ export class ChangeProgramPage implements Action {
 
 export class ChangeActivitiesPage implements Action {
   readonly type = UiActionTypes.ChangeActivitiesPage;
-  constructor(public payload: {programId: string, pageNumber: number}) { }
+  constructor(public payload: {programId: number, pageNumber: number}) { }
 }
 
 export type UiActions = ChangeProgramPage | ChangeActivitiesPage;
