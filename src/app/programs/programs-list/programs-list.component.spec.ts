@@ -36,16 +36,27 @@ describe('ProgramsListComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    describe('Setting up fake data', () => {
+        beforeEach(() => {
+            const fakePrograms = Array.from({ length: 20 }, (_, i) => ({ id: i + 20, name: 'a' }));
+            const payload = { programs: fakePrograms, activities: [] };
+            const action = new FetchDataSuccess(payload);
+            store.dispatch(action);
+        });
 
-    it('should display a list of progarms', () => {
-        const fakePrograms = Array.from({ length: 20 }, (_, i) => ({ id: i + 20, name: 'a' }));
-        const payload = { programs: fakePrograms, activities: [] };
-        const action = new FetchDataSuccess(payload);
-        store.dispatch(action);
+        it('should display a list of progarms', () => {
+            component.programs$.subscribe(data => {
+                expect(data.length).toBe(10);
+            });
+        });
 
-        component.programs$.subscribe(data => {
-            expect(data.length).toBe(10);
+        it('should should get right pageCount', () => {
+            component.programsCount$.subscribe(data => {
+                expect(data).toBe(20);
+            });
         });
     });
+
+
 
 });

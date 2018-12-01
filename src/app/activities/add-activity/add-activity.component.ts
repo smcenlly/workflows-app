@@ -11,7 +11,7 @@ import { AddActivity } from '../activities.actions';
     templateUrl: './add-activity.component.html',
 })
 export class AddActivityComponent implements OnInit {
-    programId: string;
+    programId: number;
     programName$: Observable<string>;
 
     constructor(
@@ -20,12 +20,12 @@ export class AddActivityComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.programId = this.route.snapshot.params['programId'];
+        this.programId = parseInt(this.route.snapshot.params['programId'], 10);
         this.programName$ = this.store.select(selectProgramName(this.programId));
     }
 
     onSubmitted(x: Activity) {
-        this.store.dispatch(new AddActivity(x, parseInt(this.programId, 10)));
+        this.store.dispatch(new AddActivity(x, this.programId));
     }
 
 

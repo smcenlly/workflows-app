@@ -30,7 +30,7 @@ describe('ActivitiesListComponent', () => {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
                             params: {
-                                programId: 3
+                                programId: 1
                             }
                         },
                     }
@@ -53,13 +53,9 @@ describe('ActivitiesListComponent', () => {
 
     describe('setting up fake data', () => {
         beforeEach(() => {
-            const fakePrograms = Array.from({ length: 20 }, (_, i) => ({ id: i , name: `a${i}` }));
-            const fakeActivities = Array.from({ length: 5 }, (_, i) =>
-                ({ id: i , programId: i, name: 'p', expected_start_date: '12/4/1998', expected_end_date: '12/4/1998' }))
-                .concat(
-                    Array.from({ length: 30 }, (_, i) =>
-                        ({ id: i , programId: 1, name: 'a', expected_start_date: '12/4/1998', expected_end_date: '12/4/1998' }))
-                );
+            const fakePrograms = Array.from({ length: 3 }, (_, i) => ({ id: i , name: `a${i}` }));
+            const fakeActivities = Array.from({ length: 30 }, (_, i) => ({ id: i , programId: 1, name: 'p' }))
+                .concat( Array.from({ length: 5 }, (_, i) =>  ({ id: i , programId: 2, name: 'a' })) );
 
             const payload = { programs: fakePrograms, activities: fakeActivities };
             const action = new FetchDataSuccess(payload);
@@ -68,15 +64,22 @@ describe('ActivitiesListComponent', () => {
 
         it('should display a list of activities', () => {
             component.activities$.subscribe(data => {
-                expect(data.length).toBe(1);
+                expect(data.length).toBe(10);
             });
         });
 
         it('should display program name', () => {
             component.programName$.subscribe(data => {
-                expect(data).toBe('a3');
+                expect(data).toBe('a1');
             });
         });
+
+        it('should should get right pageCount', () => {
+            component.activitiesCount$.subscribe(data => {
+                expect(data).toBe(30);
+            });
+        });
+
     });
 
 

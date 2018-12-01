@@ -13,8 +13,8 @@ import { EditActivity } from '../activities.actions';
 })
 export class EditActivityComponent implements OnInit {
 
-    programId: string;
-    activityId: string;
+    programId: number;
+    activityId: number;
     programName$: Observable<string>;
     activityName$: Observable<string>;
 
@@ -24,14 +24,14 @@ export class EditActivityComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.programId = this.route.snapshot.params['programId'];
-        this.activityId = this.route.snapshot.params['activityId'];
+        this.programId = parseInt(this.route.snapshot.params['programId'], 10);
+        this.activityId = parseInt(this.route.snapshot.params['activityId'], 10);
         this.programName$ = this.store.select(selectProgramName(this.programId));
         this.activityName$ = this.store.select(selectActivityName(this.activityId));
     }
 
     onSubmitted(x: Activity) {
-        this.store.dispatch(new EditActivity(parseInt(this.activityId, 10), x));
+        this.store.dispatch(new EditActivity(this.activityId, x));
     }
 
 }

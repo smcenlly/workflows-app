@@ -71,12 +71,12 @@ describe('Selectors', () => {
         });
 
         it('should get program name by id', () => {
-            const result = fromMyReducers.selectProgramName('21').projector(fakePrograms);
+            const result = fromMyReducers.selectProgramName(21).projector(fakePrograms);
             expect(result).toBe(41);
         });
 
         it('should return undefined if program not there', () => {
-            const result = fromMyReducers.selectProgramName('21444').projector(fakePrograms);
+            const result = fromMyReducers.selectProgramName(21444).projector(fakePrograms);
             expect(result).toBe(undefined);
         });
     });
@@ -89,12 +89,12 @@ describe('Selectors', () => {
         });
 
         it('should get program name by id', () => {
-            const result = fromMyReducers.selectActivityName('21').projector(fakeActivities);
+            const result = fromMyReducers.selectActivityName(21).projector(fakeActivities);
             expect(result).toBe(41);
         });
 
         it('should return undefined if program not there', () => {
-            const result = fromMyReducers.selectActivityName('21444').projector(fakeActivities);
+            const result = fromMyReducers.selectActivityName(21444).projector(fakeActivities);
             expect(result).toBe(undefined);
         });
     });

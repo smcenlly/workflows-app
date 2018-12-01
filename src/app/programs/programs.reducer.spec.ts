@@ -4,7 +4,7 @@ import { FetchDataSuccess } from '../app.actions';
 
 describe('Programs Reducer', () => {
     describe('Fetch success action', () => {
-        fit('should set loading to true', () => {
+        it('should set loading to true', () => {
             const { initialState } = fromPrograms;
             const action = new FetchDataSuccess({
                 programs: [

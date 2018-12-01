@@ -22,19 +22,19 @@ export class ActivitiesListComponent implements OnInit {
   currentPage$: Observable<number>;
   activitiesCount$: Observable<number>;
   programName$: Observable<string>;
-  programId: string;
+  programId: number;
   constructor(private store: Store<State>, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.programId = this.route.snapshot.params['programId'];
-    this.activities$ = this.store.select(selectTenActivities(parseInt(this.programId, 10)));
+    this.programId = parseInt(this.route.snapshot.params['programId'], 10);
+    this.activities$ = this.store.select(selectTenActivities(this.programId));
     this.activitiesCount$ = this.store.select(selectActivitiesCountForAProgram(this.programId));
     this.currentPage$ = this.store.select(selectActivitiesPageNumber(this.programId));
     this.programName$ = this.store.select(selectProgramName(this.programId));
   }
 
   changePage(e: { page: number }) {
-    this.store.dispatch(new ChangeActivitiesPage({ programId: 1, pageNumber: e.page }));
+    this.store.dispatch(new ChangeActivitiesPage({ programId: this.programId, pageNumber: e.page }));
   }
 
   convertDate(str) {
