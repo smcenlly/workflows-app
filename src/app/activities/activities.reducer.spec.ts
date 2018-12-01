@@ -1,5 +1,5 @@
 import * as fromActivities from './activities.reducer';
-import { AddActivitySuccess, DeleteActivitySuccess } from './activities.actions';
+import { AddActivitySuccess, DeleteActivitySuccess, EditActivitySuccess } from './activities.actions';
 import { FetchDataSuccess } from '../app.actions';
 
 describe('Activities Reducer', () => {
@@ -32,6 +32,16 @@ describe('Activities Reducer', () => {
                 const result = fromActivities.reducer(state, action);
                 expect(result.ids).toEqual([22, 54]);
                 expect(result.entities[54]).toBeTruthy();
+            });
+        });
+
+        describe('Updating an activity', () => {
+            it('should update state properly', () => {
+                const payload = { id: 22, name: 'new-name' };
+                const action = new EditActivitySuccess(payload);
+                const result = fromActivities.reducer(state, action);
+                expect(result.ids).toEqual([22]);
+                expect(result.entities[22].name).toBe('new-name');
             });
         });
 

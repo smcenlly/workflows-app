@@ -17,6 +17,8 @@ export function reducer(state = initialState, action: ActivitiesActions | AppAct
             return activityAdapter.addOne(action.activity, state);
         case ActivitiesActionTypes.DeleteActivitySuccess:
             return activityAdapter.removeOne(action.activityId, state);
+        case ActivitiesActionTypes.EditActivitySuccess:
+            return activityAdapter.upsertOne(action.activity, state);
         default:
             return state;
     }
