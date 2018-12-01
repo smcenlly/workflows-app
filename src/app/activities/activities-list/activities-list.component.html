@@ -1,4 +1,6 @@
-<app-title>Activities for {{programName$ | async}}</app-title>
+<app-title *ngIf="programName$ | async">
+    Activities for {{programName$ | async}}
+</app-title>
 <div class="panel-body">
     <div class="row">
     </div>
