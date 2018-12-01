@@ -8,17 +8,15 @@ import {
     DeleteActivity,
     DeleteActivitySuccess,
     AddActivityError,
-    DeleteActivityError
+    DeleteActivityError,
+    EditActivity,
+    EditActivitySuccess,
+    EditActivityError
 } from './activities.actions';
-import { map, exhaustMap, catchError, switchMap } from 'rxjs/operators';
+import { map, catchError, switchMap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { ApiService } from '../core/services/api.service';
-import { addWorkflowLevel1Prop } from '../core/services/utility';
-import { Activity } from './models/Activity';
-const activity: Activity = { id: 4, name: 'p', expected_end_date: '13/09/1998', expected_start_date: '13/09/1998' };
-// import { go } from '@ngrx/router-store';
-import { Store } from '@ngrx/store';
-import { State } from '../reducers';
+import { addWorkflowLevel1Prop, addProgramIdProp } from '../core/services/utility';
 import { SnackBarService } from '../core/services/snackbar.service';
 import { Router } from '@angular/router';
 
@@ -29,14 +27,37 @@ export class ActivitiesEffects {
     add$: Observable<ActivitiesActions> = this.actions$
         .ofType<AddActivity>(ActivitiesActionTypes.AddActivity)
         .pipe(
-            exhaustMap(action => this.service.addActivity(action.programId, addWorkflowLevel1Prop(action.activity))),
-            map(data => new AddActivitySuccess(data)),
-            // withLatestFrom(this.store),
-            // tap((data) => this.router.navigate(['programs', data.activity.programId]))
-            catchError(err => {
-                this.sb.emitErrorSnackBar();
-                return of(new AddActivityError(err));
-            })
+            switchMap(action => this.service.addActivity(addWorkflowLevel1Prop(action.activity, action.programId)).pipe(
+                map(data => {
+                    this.sb.emitSuccessSnackBar(`Successfully added activity ${data.name}`);
+                    this.router.navigate(['programs', action.programId, 'activities']);
+                    return new AddActivitySuccess(addProgramIdProp(data));
+                }),
+                // withLatestFrom(this.store),
+                catchError(err => {
+                    this.sb.emitErrorSnackBar();
+                    return of(new AddActivityError(err));
+                })
+            )),
+        );
+
+    @Effect()
+    edit$: Observable<ActivitiesActions> = this.actions$
+        .ofType<EditActivity>(ActivitiesActionTypes.EditActivity)
+        .pipe(
+            switchMap(action =>
+                this.service.updateActivity(action.activityId, addWorkflowLevel1Prop(action.activity, action.programId)).pipe(
+                    map(data => {
+                        this.sb.emitSuccessSnackBar(`Successfully updated activity ${data.name}`);
+                        const activity = addProgramIdProp(data);
+                        this.router.navigate(['programs', activity.programId, 'activities']);
+                        return new EditActivitySuccess(activity);
+                    }),
+                    catchError(err => {
+                        this.sb.emitErrorSnackBar();
+                        return of(new EditActivityError(err));
+                    })
+                )),
         );
 
     @Effect()
@@ -57,7 +78,7 @@ export class ActivitiesEffects {
         private actions$: Actions,
         // private store: Store<State>,
         private service: ApiService,
-        // private router: Router,
+        private router: Router,
         private sb: SnackBarService
     ) { }
 }

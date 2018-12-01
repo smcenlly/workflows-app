@@ -26,7 +26,7 @@ export class DeleteActivity implements Action {
 
 export class EditActivity implements Action {
     readonly type = ActivitiesActionTypes.EditActivity;
-    constructor(public activityId: number, public activity: Activity) { }
+    constructor(public activityId: number, public programId: number, public activity: Activity) { }
 }
 
 export class AddActivitySuccess implements Action {

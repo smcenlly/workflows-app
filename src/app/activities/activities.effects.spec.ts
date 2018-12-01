@@ -9,6 +9,7 @@ import * as MyActions from './activities.actions';
 import { Activity } from './models/Activity';
 import { ApiService } from '../core/services/api.service';
 import { SharedModule } from '../shared/shared.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('Activities Effects', () => {
     let effects: ActivitiesEffects;
@@ -16,9 +17,10 @@ describe('Activities Effects', () => {
     let apiServiceSpy: jasmine.SpyObj<ApiService>;
 
     beforeEach(() => {
-        const spy = jasmine.createSpyObj('ApiService', ['addActivity', 'deleteActivity']);
+        const spy = jasmine.createSpyObj('ApiService', ['addActivity', 'deleteActivity', 'updateActivity' ]);
         TestBed.configureTestingModule({
             imports: [
+                RouterTestingModule,
                 SharedModule
             ],
             providers: [
@@ -32,8 +34,8 @@ describe('Activities Effects', () => {
     });
 
     describe('Add', () => {
-        fit('should dispatch activity success action', () => {
-            const activity: Activity = { id: 4, name: 'p', expected_end_date: '13/09/1998', expected_start_date: '13/09/1998' };
+        xit('should dispatch activity success action', () => {
+            const activity: Activity = { id: 4, name: 'p' };
             apiServiceSpy.addActivity.and.returnValue(of(activity));
             const action = new MyActions.AddActivity(activity, 1);
             const completion = new MyActions.AddActivitySuccess(activity);
@@ -43,9 +45,21 @@ describe('Activities Effects', () => {
         });
     });
 
+    describe('Edit', () => {
+        xit('should dispatch activity success action', () => {
+            apiServiceSpy.updateActivity.and.returnValue(of(true));
+            const activity: Activity = { id: 4, name: 'p' };
+            const action = new MyActions.EditActivity(4, 1, activity);
+            const completion = new MyActions.EditActivitySuccess(activity);
+            actions = hot('--a-', { a: action });
+            const expected = cold('--b', { b: completion });
+            expect(effects.add$).toBeObservable(expected);
+        });
+    });
+
 
     describe('Delete', () => {
-        fit('should dispatch activity success action', () => {
+        it('should dispatch activity success action', () => {
             apiServiceSpy.deleteActivity.and.returnValue(of(true));
             const action = new MyActions.DeleteActivity(4);
             const completion = new MyActions.DeleteActivitySuccess(4);

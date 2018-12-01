@@ -62,8 +62,8 @@ describe('EditActivityComponent', () => {
     });
 
     it('should display activity name', () => {
-        component.activityName$.subscribe(data => {
-            expect(data).toBe('b');
+        component.activity$.subscribe(data => {
+            expect(data.name).toBe('b');
         });
     });
 

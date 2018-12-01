@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Activity } from '../models/Activity';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { State, selectProgramName, selectActivityName } from 'src/app/reducers';
+import { State, selectProgramName, selectActivityName, selectActivityByActivityId } from 'src/app/reducers';
 import { Observable } from 'rxjs';
 import { EditActivity } from '../activities.actions';
 
@@ -16,7 +16,7 @@ export class EditActivityComponent implements OnInit {
     programId: number;
     activityId: number;
     programName$: Observable<string>;
-    activityName$: Observable<string>;
+    activity$: Observable<Activity>;
 
     constructor(
         private store: Store<State>,
@@ -27,11 +27,11 @@ export class EditActivityComponent implements OnInit {
         this.programId = parseInt(this.route.snapshot.params['programId'], 10);
         this.activityId = parseInt(this.route.snapshot.params['activityId'], 10);
         this.programName$ = this.store.select(selectProgramName(this.programId));
-        this.activityName$ = this.store.select(selectActivityName(this.activityId));
+        this.activity$ = this.store.select(selectActivityByActivityId(this.activityId));
     }
 
     onSubmitted(x: Activity) {
-        this.store.dispatch(new EditActivity(this.activityId, x));
+        this.store.dispatch(new EditActivity(this.activityId, this.programId, x));
     }
 
 }

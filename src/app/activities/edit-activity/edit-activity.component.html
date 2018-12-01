@@ -1,2 +1,2 @@
-<app-title>Edit {{activityName$ | async}} activity for program {{programName$ | async }}</app-title>
-<app-activity-form (submitted)="onSubmitted($event)"></app-activity-form>
+<app-title *ngIf="(activity$ | async) && (programName$ | async)">Edit {{(activity$ | async).name}} activity for program {{programName$ | async }}</app-title>
+<app-activity-form *ngIf="(activity$ | async)" [activity]="activity$ | async" (submitted)="onSubmitted($event)"></app-activity-form>
