@@ -45,7 +45,7 @@ describe('Selectors', () => {
         it('should default to 1', () => {
             expect(fromMyReducers.selectActivitiesPageNumber(1)
                 .projector(
-                    { programsPageNumber: 6, activitiesPageNumber: { } }
+                    { programsPageNumber: 6, activitiesPageNumber: {} }
                 )
             ).toBe(1);
         });
@@ -63,6 +63,24 @@ describe('Selectors', () => {
             expect(result[0].id).toBe(30);
         });
     });
+
+    describe('selectProgramName', () => {
+        let fakePrograms;
+        beforeAll(() => {
+            fakePrograms = Array.from({ length: 20 }, (_, i) => ({ id: i + 20, name: i + 40 }));
+        });
+
+        it('should get program name by id', () => {
+            const result = fromMyReducers.selectProgramName('21').projector(fakePrograms);
+            expect(result).toBe(41);
+        });
+
+        it('should return undefined if program not there', () => {
+            const result = fromMyReducers.selectProgramName('21444').projector(fakePrograms);
+            expect(result).toBe(undefined);
+        });
+    });
+
 
 });
 

@@ -70,3 +70,11 @@ export const selectTenActivities = (programId): MemoizedSelector<object, Activit
 
 export const doesProgramHaveActivities = (programId: number): MemoizedSelector<object, boolean> =>
     createSelector(selectActivitiesForAProgram(programId), arr => arr.length ? true : false);
+
+export const selectProgramName = (programId: string): MemoizedSelector<object, string> =>
+    createSelector(selectAllPrograms, programs => {
+        const theOne = programs.find(program => program.id === parseInt(programId, 10));
+        if (theOne) {
+            return theOne.name;
+        }
+    });
