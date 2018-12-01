@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Activity } from '../models/Activity';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { State, selectProgramName } from 'src/app/reducers';
 import { Observable } from 'rxjs';
 import { AddActivity } from '../activities.actions';
@@ -22,7 +22,7 @@ export class AddActivityComponent implements OnInit {
 
     ngOnInit() {
         this.programId = parseInt(this.route.snapshot.params['programId'], 10);
-        this.programName$ = this.store.select(selectProgramName(this.programId));
+        this.programName$ = this.store.pipe(select(selectProgramName(this.programId)));
     }
 
     onSubmitted(x: Activity) {

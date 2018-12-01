@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Program } from '../models/program';
-import { Store } from '@ngrx/store';
-import {  State, selectTenPrograms, selectAllPrograms, selectProgramsCount,
+import { Store, select } from '@ngrx/store';
+import {  State, selectTenPrograms, selectProgramsCount,
     selectProgramsPageNumber, doesProgramHaveActivities } from 'src/app/reducers';
 import { ChangeProgramPage } from '../../ui/ui.actions';
 
@@ -18,9 +18,9 @@ export class ProgramsListComponent implements OnInit {
     constructor(private store: Store<State>) { }
 
     ngOnInit() {
-        this.programs$ = this.store.select(selectTenPrograms);
-        this.programsCount$ = this.store.select(selectProgramsCount);
-        this.currentPage$ = this.store.select(selectProgramsPageNumber);
+        this.programs$ = this.store.pipe(select(selectTenPrograms));
+        this.programsCount$ = this.store.pipe(select(selectProgramsCount));
+        this.currentPage$ = this.store.pipe(select(selectProgramsPageNumber));
     }
 
     changePage(e: {page: number}) {
@@ -28,6 +28,6 @@ export class ProgramsListComponent implements OnInit {
     }
 
     hasActivities(programId) {
-        return this.store.select(doesProgramHaveActivities(programId));
+        return this.store.pipe(select(doesProgramHaveActivities(programId)));
     }
 }

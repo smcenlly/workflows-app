@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import {
   State, selectTenActivities, selectActivitiesCountForAProgram,
   selectActivitiesPageNumber, selectProgramName
@@ -28,10 +28,10 @@ export class ActivitiesListComponent implements OnInit {
 
   ngOnInit() {
     this.programId = parseInt(this.route.snapshot.params['programId'], 10);
-    this.activities$ = this.store.select(selectTenActivities(this.programId));
-    this.activitiesCount$ = this.store.select(selectActivitiesCountForAProgram(this.programId));
-    this.currentPage$ = this.store.select(selectActivitiesPageNumber(this.programId));
-    this.programName$ = this.store.select(selectProgramName(this.programId));
+    this.activities$ = this.store.pipe(select(selectTenActivities(this.programId)));
+    this.activitiesCount$ = this.store.pipe(select(selectActivitiesCountForAProgram(this.programId)));
+    this.currentPage$ = this.store.pipe(select(selectActivitiesPageNumber(this.programId)));
+    this.programName$ = this.store.pipe(select(selectProgramName(this.programId)));
   }
 
   changePage(e: { page: number }) {

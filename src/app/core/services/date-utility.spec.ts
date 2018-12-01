@@ -4,7 +4,7 @@ describe('Date Utility', () => {
 
     describe('convertDateToReadableForm', () => {
         it('should work', () => {
-            const actual = convertDateToReadableForm('2018-11-13T22:00:00+01:00')
+            const actual = convertDateToReadableForm('2018-11-13T22:00:00+01:00');
             expect(actual).toBe('13.11.2018');
         });
     });
