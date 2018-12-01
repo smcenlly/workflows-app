@@ -99,5 +99,16 @@ describe('Selectors', () => {
         });
     });
 
+
+    describe('selectActivityByActivityId', () => {
+        let fakeActivities;
+        beforeAll(() => {
+            fakeActivities = Array.from({ length: 20 }, (_, i) => ({ id: i + 20, name: i + 40 }));
+        });
+        it('should get activity by activityIdd', () => {
+            const result = fromMyReducers.selectActivityByActivityId(20).projector(fakeActivities);
+            expect(result).toEqual({id: 20, name: 40});
+        });
+    });
 });
 
