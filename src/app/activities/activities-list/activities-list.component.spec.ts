@@ -30,7 +30,7 @@ describe('ActivitiesListComponent', () => {
                     provide: ActivatedRoute, useValue: {
                         snapshot: {
                             params: {
-                                programId: 1
+                                programId: 3
                             }
                         },
                     }
@@ -51,23 +51,33 @@ describe('ActivitiesListComponent', () => {
         expect(component).toBeTruthy();
     });
 
+    describe('setting up fake data', () => {
+        beforeEach(() => {
+            const fakePrograms = Array.from({ length: 20 }, (_, i) => ({ id: i , name: `a${i}` }));
+            const fakeActivities = Array.from({ length: 5 }, (_, i) =>
+                ({ id: i , programId: i, name: 'p', expected_start_date: '12/4/1998', expected_end_date: '12/4/1998' }))
+                .concat(
+                    Array.from({ length: 30 }, (_, i) =>
+                        ({ id: i , programId: 1, name: 'a', expected_start_date: '12/4/1998', expected_end_date: '12/4/1998' }))
+                );
 
-    it('should display a list of activities', () => {
-        const fakePrograms = Array.from({ length: 20 }, (_, i) => ({ id: i + 20, name: 'a' }));
-        const fakeActivities = Array.from({ length: 5 }, (_, i) =>
-            ({ id: i + 20, programId: 2, name: 'p', expected_start_date: '12/4/1998', expected_end_date: '12/4/1998' }))
-            .concat(
-                Array.from({ length: 30 }, (_, i) =>
-                    ({ id: i + 20, programId: 1, name: 'a', expected_start_date: '12/4/1998', expected_end_date: '12/4/1998' }))
-            );
+            const payload = { programs: fakePrograms, activities: fakeActivities };
+            const action = new FetchDataSuccess(payload);
+            store.dispatch(action);
+        });
 
-        const payload = { programs: fakePrograms, activities: fakeActivities };
-        const action = new FetchDataSuccess(payload);
-        store.dispatch(action);
+        it('should display a list of activities', () => {
+            component.activities$.subscribe(data => {
+                expect(data.length).toBe(1);
+            });
+        });
 
-        component.activities$.subscribe(data => {
-            expect(data.length).toBe(10);
+        it('should display program name', () => {
+            component.programName$.subscribe(data => {
+                expect(data).toBe('a3');
+            });
         });
     });
+
 
 });

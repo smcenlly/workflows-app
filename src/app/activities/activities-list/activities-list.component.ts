@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
   State, selectTenActivities, selectActivitiesCountForAProgram,
-  selectActivitiesPageNumber, selectAllActivities, selectActivitiesForAProgram
+  selectActivitiesPageNumber, selectProgramName
 } from 'src/app/reducers';
 import { Activity } from '../models/Activity';
 import { ChangeActivitiesPage } from '../../ui/ui.actions';
@@ -18,10 +18,10 @@ import { DeleteActivity } from '../activities.actions';
 })
 export class ActivitiesListComponent implements OnInit {
 
-
   activities$: Observable<Activity[]>;
   currentPage$: Observable<number>;
   activitiesCount$: Observable<number>;
+  programName$: Observable<string>;
   programId: string;
   constructor(private store: Store<State>, private route: ActivatedRoute) { }
 
@@ -30,6 +30,7 @@ export class ActivitiesListComponent implements OnInit {
     this.activities$ = this.store.select(selectTenActivities(parseInt(this.programId, 10)));
     this.activitiesCount$ = this.store.select(selectActivitiesCountForAProgram(this.programId));
     this.currentPage$ = this.store.select(selectActivitiesPageNumber(this.programId));
+    this.programName$ = this.store.select(selectProgramName(this.programId));
   }
 
   changePage(e: { page: number }) {
