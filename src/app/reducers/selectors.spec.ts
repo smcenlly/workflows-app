@@ -82,5 +82,22 @@ describe('Selectors', () => {
     });
 
 
+    describe('selectActivityName', () => {
+        let fakeActivities;
+        beforeAll(() => {
+            fakeActivities = Array.from({ length: 20 }, (_, i) => ({ id: i + 20, name: i + 40 }));
+        });
+
+        it('should get program name by id', () => {
+            const result = fromMyReducers.selectActivityName('21').projector(fakeActivities);
+            expect(result).toBe(41);
+        });
+
+        it('should return undefined if program not there', () => {
+            const result = fromMyReducers.selectActivityName('21444').projector(fakeActivities);
+            expect(result).toBe(undefined);
+        });
+    });
+
 });
 
