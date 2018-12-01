@@ -1,2 +1,6 @@
-<app-title>Add activity to {{programName$ | async }}</app-title>
+<app-title *ngIf="programName$ | async">Add activity to {{programName$ | async }}</app-title>
+<h3 class="panel-title">
+    <button class="btn btn-default" [routerLink]="['../']">Back to Activities</button>
+</h3>
+
 <app-activity-form (submitted)="onSubmitted($event)"></app-activity-form>
