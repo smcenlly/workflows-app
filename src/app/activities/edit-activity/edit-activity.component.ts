@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Activity } from '../models/Activity';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -10,6 +10,7 @@ import { EditActivity } from '../activities.actions';
 @Component({
     selector: 'app-edit-activity',
     templateUrl: './edit-activity.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditActivityComponent implements OnInit {
 

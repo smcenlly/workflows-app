@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
@@ -15,6 +15,7 @@ import { DeleteActivity } from '../activities.actions';
 @Component({
   selector: 'app-activities-list',
   templateUrl: './activities-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivitiesListComponent implements OnInit {
 

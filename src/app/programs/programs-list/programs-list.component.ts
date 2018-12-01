@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Program } from '../models/program';
 import { Store } from '@ngrx/store';
@@ -9,6 +9,7 @@ import { ChangeProgramPage } from '../../ui/ui.actions';
 @Component({
     selector: 'app-programs-list',
     templateUrl: './programs-list.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProgramsListComponent implements OnInit {
     programs$: Observable<Program[]>;

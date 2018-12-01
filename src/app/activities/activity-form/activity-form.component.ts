@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Activity } from '../models/Activity';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/public_api';
@@ -6,6 +6,7 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/public_api';
 @Component({
     selector: 'app-activity-form',
     templateUrl: './activity-form.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityFormComponent implements OnInit {
 
