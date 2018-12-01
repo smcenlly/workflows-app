@@ -2,9 +2,11 @@
     "cSpell.words": [
         "be",
         "memoized",
+        "one",
         "selector",
         "to",
         "truthy",
+        "upsert",
         "workflowlevel"
     ]
 }
