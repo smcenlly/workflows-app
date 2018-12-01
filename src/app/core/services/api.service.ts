@@ -25,8 +25,8 @@ export class ApiService {
         return this.http.post<Activity>(`${this.secondLevelUrl}/`, activity);
     }
 
-    updateActivity(activity: Activity): Observable<Activity> {
-        return this.http.post<Activity>(`${this.secondLevelUrl}/${activity.id}/`, activity);
+    updateActivity(activityId: number, activity: Activity): Observable<Activity> {
+        return this.http.put<Activity>(`${this.secondLevelUrl}/${activityId}/`, activity);
     }
 
     deleteActivity(activityId: number): Observable<any> {
