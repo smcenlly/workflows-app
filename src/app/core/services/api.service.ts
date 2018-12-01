@@ -21,16 +21,20 @@ export class ApiService {
         return this.http.get<Activity[]>(`${this.secondLevelUrl}`);
     }
 
-    addActivity(programId: number, activity: Activity): Observable<Activity> {
-        return this.http.post<Activity>(`${this.secondLevelUrl}/${programId}`, activity);
+    addActivity(activity: Activity): Observable<Activity> {
+        return this.http.post<Activity>(`${this.secondLevelUrl}/`, activity);
+    }
+
+    updateActivity(activity: Activity): Observable<Activity> {
+        return this.http.post<Activity>(`${this.secondLevelUrl}/${activity.id}/`, activity);
     }
 
     deleteActivity(activityId: number): Observable<any> {
         return this.http.delete<any>(`${this.secondLevelUrl}/${activityId}`);
     }
 
-    // getActivitiesForProgram(programId): Observable<Activity[]> {
-    //   return this.http.get<Activity[]>(`${this.secondLevelUrl}/?workflowlevel1__id=${programId}`);
-    // }
+    getActivitiesForProgram(programId): Observable<Activity[]> {
+      return this.http.get<Activity[]>(`${this.secondLevelUrl}/?workflowlevel1__id=${programId}`);
+    }
 }
 
