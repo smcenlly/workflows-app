@@ -1,3 +1,2 @@
-<p>
-  add-activity works!
-</p>
+<app-title>Add activity to {{programName$ | async }}</app-title>
+<app-activity-form (submitted)="onSubmitted($event)"></app-activity-form>
