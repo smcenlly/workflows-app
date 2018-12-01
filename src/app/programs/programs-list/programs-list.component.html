@@ -5,6 +5,7 @@
     <table class="table table-hover">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Status</th>
                 <th class="text-center">Have Activities</th>
@@ -13,6 +14,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of programs$ | async;">
+                <td>{{item.id}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.status}}</td>
                 <td class="text-center">
@@ -30,12 +32,6 @@
     </table>
 </div>
 
-<!-- <div class="col-md-12">
-     <pagination-controls (pageChange)="p = $event"></pagination-controls>
- </div> -->
-
 <div class="col-md-12">
     <pagination [totalItems]="programsCount$ | async" [maxSize]="10" [ngModel]="currentPage$ | async" (pageChanged)="changePage($event)"></pagination>
 </div>
-<!-- [(ngModel)]="currentPage" (pageChanged)="fetchUsers($event)" -->
-<!-- "  -->
