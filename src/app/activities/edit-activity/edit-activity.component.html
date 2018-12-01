@@ -1,3 +1,2 @@
-<p>
-  edit-activity works!
-</p>
+<app-title>Edit {{activityName$ | async}} activity for program {{programName$ | async }}</app-title>
+<app-activity-form (submitted)="onSubmitted($event)"></app-activity-form>
