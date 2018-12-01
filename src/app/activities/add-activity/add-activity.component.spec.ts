@@ -7,9 +7,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { FetchDataSuccess } from '../../app.actions';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AddActivity } from '../activities.actions';
 import { ActivityFormComponent } from '../activity-form/activity-form.component';
-import { ActivitiesModule } from '../activities.module';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 describe('AddActivityComponent', () => {
@@ -60,14 +58,6 @@ describe('AddActivityComponent', () => {
         component.programName$.subscribe(data => {
             expect(data).toBe('a');
         });
-    });
-
-
-    it('should dispatch an action on submitting form', () => {
-        const newActivity = {id: 4, name: 'a'};
-        component.onSubmitted(newActivity);
-        const action = new AddActivity(newActivity, parseInt(component.programId, 10));
-        expect(store.dispatch).toHaveBeenCalledWith(action);
     });
 
 });
