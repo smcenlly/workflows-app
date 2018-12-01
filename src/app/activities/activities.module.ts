@@ -9,6 +9,7 @@ import { ActivitiesListComponent } from './activities-list/activities-list.compo
 import { ActivitiesRoutingModule } from './activities-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { EditActivityComponent } from './edit-activity/edit-activity.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { EditActivityComponent } from './edit-activity/edit-activity.component';
     ActivityFormComponent
   ],
   imports: [
+    BsDatepickerModule.forRoot(),
     SharedModule,
     CommonModule,
     ActivitiesRoutingModule,
