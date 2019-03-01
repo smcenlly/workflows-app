@@ -1,82 +1,62 @@
-var wallabyWebpack = require('wallaby-webpack');
-var path = require('path');
+// see https://wallabyjs.com/docs/integration/angular.html#jest
+module.exports = function () {
 
-var compilerOptions = Object.assign(
-  require('./tsconfig.json').compilerOptions,
-  require('./src/tsconfig.spec.json').compilerOptions);
-
-module.exports = function (wallaby) {
-
-  var webpackPostprocessor = wallabyWebpack({
-    entryPatterns: [
-      'src/wallabyTest.js',
-      'src/**/*spec.js'
-    ],
-
-    module: {
-      rules: [
-        {test: /\.css$/, loader: ['raw-loader']},
-        {test: /\.html$/, loader: 'raw-loader'},
-        {test: /\.ts$/, loader: '@ngtools/webpack', include: /node_modules/, query: {tsConfigPath: 'tsconfig.json'}},
-        {test: /\.js$/, loader: 'angular2-template-loader', exclude: /node_modules/},
-        {test: /\.styl$/, loaders: ['raw-loader', 'stylus-loader']},
-        {test: /\.less$/, loaders: ['raw-loader', {loader: 'less-loader'}]},
-        {test: /\.scss$|\.sass$/, loaders: ['raw-loader', 'sass-loader']},
-        {test: /\.(jpg|png|svg)$/, loader: 'raw-loader'}
-      ]
+  const jestTransform = file => require('jest-preset-angular/preprocessor').process(file.content, file.path, {
+    globals: {
+      __TRANSFORM_HTML__: true,
     },
-
-    resolve: {
-      extensions: ['.js', '.ts'],
-      modules: [
-        path.join(wallaby.projectCacheDir, 'src/app'),
-        path.join(wallaby.projectCacheDir, 'src'),
-        path.join(wallaby.projectCacheDir, './'),
-        'node_modules'
-      ]
-    },
-    node: {
-      fs: 'empty',
-      net: 'empty',
-      tls: 'empty',
-      dns: 'empty'
-    }
+    rootDir: __dirname
   });
 
   return {
     files: [
-      {pattern: 'src/**/*.+(ts|css|less|scss|sass|styl|html|json|svg)', load: false},
-      {pattern: 'src/**/*.d.ts', ignore: true},
-      {pattern: 'src/**/*spec.ts', ignore: true}
+      'src/app/**/*.+(ts|html|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg)',
+      'jest.config.js',
+      { pattern: 'babel.config.js', instrument: false },
+      'src/setup-jest.ts',
+      'src/__mocks__/jestGlobalMocks.ts',
+      '!src/app/**/*.+(spec|test).ts'
     ],
 
     tests: [
-      {pattern: 'src/**/*spec.ts', load: false},
-      {pattern: 'src/**/*e2e-spec.ts', ignore: true}
+        'src/app/**/*.+(spec|test).ts',
     ],
 
-    testFramework: 'jasmine',
+    env: {
+      type: 'node',
+      runner: 'node'
+    },
+
+    preprocessors: {
+      'src/**/*.js': [
+        jestTransform,
+        (file) => require('@babel/core').transform(file.content, {
+          sourceMap: true,
+          filename: file.path,
+          presets: [require('babel-preset-jest')]
+        })
+      ]
+    },
 
     compilers: {
-      '**/*.ts': wallaby.compilers.typeScript(compilerOptions)
+        '**/*.html': file => ({
+            code: jestTransform(file),
+            map: {
+            version: 3,
+            sources: [],
+            names: [],
+            mappings: []
+            },
+            ranges: []
+        })
     },
 
-    middleware: function (app, express) {
-      var path = require('path');
-      app.use('/favicon.ico', express.static(path.join(__dirname, 'src/favicon.ico')));
-      app.use('/assets', express.static(path.join(__dirname, 'src/assets')));
-    },
+    testFramework: 'jest',
 
-    env: {
-      kind: 'chrome'
-    },
-
-    postprocessor: webpackPostprocessor,
-
-    setup: function () {
-      window.__moduleBundler.loadTests();
-    },
-
-    debug: true
+    setup: wallaby => {
+        const jestConfig = require('./jest.config');
+        //delete jestConfig.transform["^.+\\.html$"];
+        wallaby.testFramework.configure(jestConfig);
+    }
   };
 };

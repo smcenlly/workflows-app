@@ -42,6 +42,7 @@ describe('ActivitiesListComponent', () => {
         store = TestBed.get(Store);
         spyOn(store, 'dispatch').and.callThrough();
         fixture = TestBed.createComponent(ActivitiesListComponent);
+        // expect(fixture).toMatchSnapshot();
         component = fixture.componentInstance;
         fixture.detectChanges();
 

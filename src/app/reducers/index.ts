@@ -6,7 +6,7 @@ import {
     createSelector,
     MemoizedSelector
 } from '@ngrx/store';
-import { environment } from '../../environments/environment';
+import { environment } from 'src/environments/environment';
 import * as fromPrograms from '../programs/programs.reducer';
 import * as fromActivities from '../activities/activities.reducer';
 import * as fromUi from '../ui/ui.reducer';

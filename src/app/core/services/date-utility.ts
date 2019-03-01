@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment from 'moment';
 
 export const convertDateToReadableForm = (str) => {
     return str ? moment(str).format('DD.MM.YYYY') : str;
