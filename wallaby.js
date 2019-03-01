@@ -1,4 +1,4 @@
-module.exports = function () {
+module.exports = function (wallaby) {
 
   const jestTransform = file => require('jest-preset-angular/preprocessor').process(file.content, file.path, {globals: {__TRANSFORM_HTML__: true}, rootDir: __dirname});
 
@@ -17,6 +17,7 @@ module.exports = function () {
     },
 
     compilers: {
+      '**/*.ts?(x)': wallaby.compilers.typeScript({module: 'commonjs'}),
       '**/*.html': file => ({code: jestTransform(file), map: {version: 3, sources: [], names: [], mappings: []}, ranges: []})
     },
 
