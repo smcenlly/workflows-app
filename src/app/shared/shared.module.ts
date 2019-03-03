@@ -18,7 +18,6 @@ import { NgProgressHttpModule } from '@ngx-progressbar/http';
         HttpClientModule,
         RouterModule,
         MatSnackBarModule,
-        NgProgressModule,
         AppInputsModule,
         PaginationModule.forRoot(),
         NgProgressModule.forRoot(),

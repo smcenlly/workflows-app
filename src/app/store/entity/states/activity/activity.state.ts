@@ -58,7 +58,6 @@ export class ActivityState {
     fetchData(ctx: StateContext<ActivityStateModel>) {
         return this.api.getActivities().pipe(
             tap((a: Activity[]) => {
-
                 ctx.setState({
                     items: a.map(activity => addProgramIdProp(activity)),
                 });

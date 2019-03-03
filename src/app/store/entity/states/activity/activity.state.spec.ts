@@ -6,6 +6,7 @@ import { FetchData } from 'src/app/store/shared/shared.actions';
 import { apiResponsesStubs } from 'src/__stubs__/api_responses_stubs';
 import { of } from 'rxjs';
 import { SnackBarService } from 'src/app/core/services/snackbar.service';
+import { AddActivity } from './activity.actions';
 
 describe('Activity store', () => {
     let store: Store;
@@ -16,8 +17,8 @@ describe('Activity store', () => {
             imports: [NgxsModule.forRoot([ActivityState])],
             providers: [
                 { provide: ApiService, useValue: apiServiceSpy },
-                {provide : SnackBarService, useValue: {emitSuccessSnackBar(){}, emitErrorSnackBar(){}}}
-            
+                { provide: SnackBarService, useValue: { emitSuccessSnackBar() { }, emitErrorSnackBar() { } } }
+
             ],
         }).compileComponents();
         store = TestBed.get(Store);
@@ -26,24 +27,28 @@ describe('Activity store', () => {
 
     describe('fetchData', () => {
         it('should have the right info in store', async(() => {
-            // const a = { id: 65, name: 'b', workflowlevel1: "https://dev-api.toladata.io/api/workflowlevel1/550/" }
             apiServiceSpy.getActivities = jest.fn(() => of(apiResponsesStubs.getActivities));
-            const expected: ActivityStateModel = {
-                items: apiResponsesStubs.getActivities,
-            };
-            // apiServiceSpy.getActivities.and.returnValue();
             store.dispatch(new FetchData());
-            setTimeout(()=>{
-                // const actual = store.selectSnapshot(ActivityState.getState);
-                // expect(actual).toEqual({items: []});
-                store.selectOnce(state => ActivityState.getState(state)).subscribe(message => {
-                    // message
-                    console.log('a', message)
-                    expect(message).toEqual([]);
-                })
-    
-            },1000)
-            
+            expect(store.selectSnapshot(ActivityState.getState)).toMatchSnapshot()
         }));
     });
+
+    describe('add item', () => {
+        it('should have the right info in store', async(() => {
+            apiServiceSpy.addActivity = jest.fn(() => of(apiResponsesStubs.addActivity));
+            store.dispatch(new AddActivity({
+                id: null,
+                expected_end_date: "2019-03-03T20:38:29.014Z",
+                expected_start_date: "2019-03-03T20:38:29.014Z",
+                name: "adggh",
+                workflowlevel1: "https://dev-api.toladata.io/api/workflowlevel1/5/",
+            }, 5));
+            expect(store.selectSnapshot(ActivityState.getState)).toMatchSnapshot()
+        }));
+    });
+
+
+    
+
+
 });
