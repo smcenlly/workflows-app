@@ -6,19 +6,15 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/public_api';
 @Component({
     selector: 'app-activity-form',
     templateUrl: './activity-form.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActivityFormComponent implements OnInit {
-
     form: FormGroup;
     datePickerConfig: Partial<BsDatepickerConfig>;
     @Input() activity?: Activity;
     @Output() submitted = new EventEmitter();
 
-    constructor(
-        private fb: FormBuilder,
-    ) {
-    }
+    constructor(private fb: FormBuilder) {}
 
     ngOnInit() {
         this.datePickerConfig = { containerClass: 'theme-red' };
@@ -29,20 +25,24 @@ export class ActivityFormComponent implements OnInit {
         this.submitted.emit({
             name: this.form.value.name,
             expected_start_date: this.form.value.expected_start_date,
-            expected_end_date: this.form.value.expected_end_date
+            expected_end_date: this.form.value.expected_end_date,
         });
     }
 
     private buildForm() {
         this.form = this.fb.group({
-            name: [this.activity ? this.activity.name : '', Validators.compose([
-                Validators.required, Validators.maxLength(20), Validators.minLength(3)])],
-            expected_start_date:
-                [this.activity ? new Date(this.activity.expected_start_date.replace('Z', '')) : new Date(Date.now()), Validators.required],
-            expected_end_date:
-                [this.activity ? new Date(this.activity.expected_end_date.replace('Z', '')) : new Date(Date.now()), Validators.required],
+            name: [
+                this.activity ? this.activity.name : '',
+                Validators.compose([Validators.required, Validators.maxLength(20), Validators.minLength(3)]),
+            ],
+            expected_start_date: [
+                this.activity ? new Date(this.activity.expected_start_date.replace('Z', '')) : new Date(Date.now()),
+                Validators.required,
+            ],
+            expected_end_date: [
+                this.activity ? new Date(this.activity.expected_end_date.replace('Z', '')) : new Date(Date.now()),
+                Validators.required,
+            ],
         });
     }
-
-
 }

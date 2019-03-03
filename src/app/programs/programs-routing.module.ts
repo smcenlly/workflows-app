@@ -2,12 +2,10 @@ import { ProgramsListComponent } from './programs-list/programs-list.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [
-    { path: '', component: ProgramsListComponent },
-];
+const routes: Routes = [{ path: '', component: ProgramsListComponent }];
 
 @NgModule({
     imports: [RouterModule.forChild(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
 })
-export class ProgramsRoutingModule { }
+export class ProgramsRoutingModule {}

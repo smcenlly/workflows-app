@@ -6,24 +6,14 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { AuthInterceptor } from './http-interceptors/authentication-interceptor';
 
-
 @NgModule({
-    imports: [
-        CommonModule,
-        RouterModule
-    ],
-    exports: [
-        NavbarComponent,
-    ],
-    declarations: [
-        NavbarComponent,
-    ],
-    providers: [
-        { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    ],
+    imports: [CommonModule, RouterModule],
+    exports: [NavbarComponent],
+    declarations: [NavbarComponent],
+    providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
 })
 export class CoreModule {
-    constructor( @Optional() @SkipSelf() parentModule: CoreModule) {
+    constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
         throwIfAlreadyLoaded(parentModule, 'CoreModule');
     }
 }

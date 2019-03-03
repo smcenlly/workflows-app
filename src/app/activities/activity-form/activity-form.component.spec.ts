@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { ActivityFormComponent } from './activity-form.component';
 import { SharedModule } from '../../shared/shared.module';
 import { By } from '@angular/platform-browser';
@@ -13,7 +12,7 @@ describe('ActivityForm Componentt', () => {
         TestBed.configureTestingModule({
             imports: [SharedModule, BsDatepickerModule.forRoot()],
             providers: [],
-            declarations: [ActivityFormComponent]
+            declarations: [ActivityFormComponent],
         });
         fixture = TestBed.createComponent(ActivityFormComponent);
         comp = fixture.componentInstance;
@@ -53,7 +52,6 @@ describe('ActivityForm Componentt', () => {
                 expect(y[0].nativeElement.innerHTML).toContain('Please enter');
                 expect(y[0].properties.hidden).toBeFalsy();
             });
-
         });
 
         describe('all valid', () => {
@@ -89,9 +87,5 @@ describe('ActivityForm Componentt', () => {
                 });
             });
         });
-
-
-
     });
-
 });

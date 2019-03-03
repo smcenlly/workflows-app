@@ -1,19 +1,17 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import {  State } from 'src/app/reducers';
-import { FetchData } from './app.actions';
+import { Store } from '@ngxs/store';
+import { FetchData } from './store/shared/shared.actions';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  title = 'programs-app';
-  constructor(private store: Store<State>) { }
+    title = 'programs-app';
+    constructor(private store: Store) {}
 
-  ngOnInit() {
-    this.store.dispatch(new FetchData());
-  }
-
+    ngOnInit() {
+        this.store.dispatch(new FetchData());
+    }
 }

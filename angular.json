@@ -141,7 +141,7 @@
   },
   "defaultProject": "programs-app",
   "cli": {
-    "defaultCollection": "@ngrx/schematics"
+    "defaultCollection": "@ngxs/schematics"
   },
   "schematics": {
     "@schematics/angular:component": {

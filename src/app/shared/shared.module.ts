@@ -11,33 +11,32 @@ import { TitleComponent } from './components/title/title.component';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule,
-    MatSnackBarModule,
-    NgProgressModule,
-    AppInputsModule,
-    PaginationModule.forRoot(),
-    NgProgressModule.forRoot(),
-    NgProgressHttpModule.forRoot()
-  ],
-  providers: [],
-  exports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    NgProgressModule,
-    AppInputsModule,
-    PaginationModule,
-    TitleComponent
-  ],
-  declarations: [
-    TitleComponent
-  ]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        RouterModule,
+        MatSnackBarModule,
+        NgProgressModule,
+        AppInputsModule,
+        PaginationModule.forRoot(),
+        NgProgressModule.forRoot(),
+        NgProgressHttpModule.forRoot(),
+    ],
+    providers: [],
+    exports: [
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule,
+        NgProgressModule,
+        AppInputsModule,
+        PaginationModule,
+        TitleComponent,
+        MatSnackBarModule
+    ],
+    declarations: [TitleComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

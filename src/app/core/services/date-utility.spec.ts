@@ -1,7 +1,6 @@
 import { convertDateToReadableForm, convertDateToAPIReadableFormat } from './date-utility';
 
 describe('Date Utility', () => {
-
     describe('convertDateToReadableForm', () => {
         it('should work', () => {
             const actual = convertDateToReadableForm('2018-11-13T22:00:00+01:00');
@@ -15,8 +14,4 @@ describe('Date Utility', () => {
     //         expect(actual).toBe('2018-11-13T23:00:00+01:00');
     //     });
     // });
-
-
 });
-
-

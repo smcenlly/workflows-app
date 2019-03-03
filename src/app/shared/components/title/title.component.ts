@@ -4,8 +4,6 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
     selector: 'app-title',
     templateUrl: 'title.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['title.component.scss']
+    styleUrls: ['title.component.scss'],
 })
-export class TitleComponent {
-
-}
+export class TitleComponent {}

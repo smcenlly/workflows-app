@@ -4,16 +4,8 @@ import { DefaultInputLayoutComponent } from './default-input-layout/default-inpu
 import { SubmitButtonComponent } from './submit-button/submit-button.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-  ],
-  exports: [
-    SubmitButtonComponent,
-    DefaultInputLayoutComponent,
-  ],
-  declarations: [
-    SubmitButtonComponent,
-    DefaultInputLayoutComponent,
-  ],
+    imports: [CommonModule],
+    exports: [SubmitButtonComponent, DefaultInputLayoutComponent],
+    declarations: [SubmitButtonComponent, DefaultInputLayoutComponent],
 })
-export class AppInputsModule { }
+export class AppInputsModule {}

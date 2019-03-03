@@ -4,7 +4,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
     selector: 'app-default-input-layout',
     templateUrl: 'default-input-layout.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    styleUrls: ['default-input-layout.component.scss']
+    styleUrls: ['default-input-layout.component.scss'],
 })
 export class DefaultInputLayoutComponent {
     @Input() errorMessage: string;

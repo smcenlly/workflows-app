@@ -6,12 +6,12 @@ import { Activity } from 'src/app/activities/models/Activity';
 import { apiBaseUrl } from 'src/app/config/constants';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class ApiService {
     private readonly firstLevelUrl = `${apiBaseUrl}/workflowlevel1`;
     private readonly secondLevelUrl = `${apiBaseUrl}/workflowlevel2`;
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient) {}
 
     getPrograms(): Observable<Program[]> {
         return this.http.get<Program[]>(this.firstLevelUrl);
@@ -34,7 +34,6 @@ export class ApiService {
     }
 
     getActivitiesForProgram(programId): Observable<Activity[]> {
-      return this.http.get<Activity[]>(`${this.secondLevelUrl}/?workflowlevel1__id=${programId}`);
+        return this.http.get<Activity[]>(`${this.secondLevelUrl}/?workflowlevel1__id=${programId}`);
     }
 }
-

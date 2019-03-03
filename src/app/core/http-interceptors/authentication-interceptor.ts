@@ -3,17 +3,16 @@ import { HttpInterceptor, HttpRequest, HttpHeaders, HttpHandler } from '@angular
 import { tempAuthToken } from 'src/app/config/constants';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class AuthInterceptor implements HttpInterceptor {
-    constructor() { }
+    constructor() {}
     intercept(req: HttpRequest<any>, next: HttpHandler) {
         req = req.clone({
             setHeaders: {
-                Authorization: `Bearer ${tempAuthToken}`
-            }
+                Authorization: `Bearer ${tempAuthToken}`,
+            },
         });
         return next.handle(req);
     }
-
 }

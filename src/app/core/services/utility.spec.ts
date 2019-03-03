@@ -18,7 +18,6 @@ describe('Utility', () => {
         });
     });
 
-
     describe('addWorkflowLevel1Prop', () => {
         it('should add prop correctly', () => {
             const activity: Activity = { id: 1, name: 'a' };
@@ -27,15 +26,10 @@ describe('Utility', () => {
         });
     });
 
-
     // describe('convertDateToReadableForm', () => {
     //     it('should work', () => {
     //         const actual = convertDateToAPIReadableFormat('13.11.2018');
     //         expect(actual).toBe('2018-11-13T23:00:00+01:00');
     //     });
     // });
-
-
 });
-
-
